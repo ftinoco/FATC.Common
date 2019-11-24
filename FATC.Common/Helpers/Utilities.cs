@@ -1,5 +1,7 @@
-﻿using System;
+﻿using FATC.Common.Extensions;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq.Expressions;
 using System.Text;
@@ -8,6 +10,8 @@ namespace FATC.Common.Helpers
 {
     public class Utilities
     {
+        #region I/O Methods
+
         public static void CheckPath(ref string serverPath)
         {
             string initPath = string.Empty;
@@ -65,7 +69,38 @@ namespace FATC.Common.Helpers
             {
                 throw ioExp;
             }
-        } 
+        }
 
+        #endregion
+
+        #region Entities Methods
+
+        public static string GetPropertyDisplayName<T>(Expression<Func<T, object>> propertyExpression)
+        {
+            var memberInfo = propertyExpression.Body.GetPropertyInformation();
+            if (memberInfo == null)
+                throw new ArgumentException($"No se encontró la propiedad en la expresión proporcionada");
+
+            var attr = memberInfo.GetAttribute<DisplayAttribute>(false);
+            if (attr == null)
+                return memberInfo.Name;
+
+            return attr.Name;
+        }
+
+        public static string GetPropertyRequiredMessage<T>(Expression<Func<T, object>> propertyExpression)
+        {
+            var memberInfo = propertyExpression.Body.GetPropertyInformation();
+            if (memberInfo == null)
+                throw new ArgumentException($"No se encontró la propiedad en la expresión proporcionada");
+
+            var attr = memberInfo.GetAttribute<RequiredAttribute>(false);
+            if (attr == null)
+                return memberInfo.Name;
+
+            return attr.ErrorMessage;
+        }
+
+        #endregion
     }
 }
