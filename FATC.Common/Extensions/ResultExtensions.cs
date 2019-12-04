@@ -9,33 +9,35 @@ namespace FATC.Common.Extensions
 {
     public static class ResultExtensions
     {
-        public static WebApiResult<List<T>> ConvertToWebApiResultList<T>(this Result<List<T>> lstResult, ILoggerManager logger)
+        public static WebApiResult<List<T>> ConvertToWebApiResultList<T>(this Result<List<T>> result, ILoggerManager logger)
         {
             WebApiResult<List<T>> webApiResult = new WebApiResult<List<T>>();
-            switch (lstResult.ResultType)
+            switch (result.ResultType)
             {
                 case ResultType.INFO:
                     webApiResult.ResponseCode = HttpStatusCode.BadRequest;
-                    logger.LogInfo(lstResult.Message);
+                    logger.LogInfo(result.Message);
                     break;
                 case ResultType.ERROR:
                     webApiResult.ResponseCode = HttpStatusCode.InternalServerError;
-                    logger.LogError(lstResult.Message, lstResult.DetailException);
+                    // Superseded because the previous method did not set the trace exception
+                    logger.Log(LogType.ERROR, result.DetailException);
+                    //logger.LogError(result.Message, result.DetailException);
                     break;
                 case ResultType.SUCCESS:
                     webApiResult.ResponseCode = HttpStatusCode.OK;
-                    logger.LogInfo(lstResult.Message);
+                    logger.LogInfo(result.Message);
                     break;
                 case ResultType.WARNING:
                     webApiResult.ResponseCode = HttpStatusCode.NotFound;
-                    logger.LogWarn(lstResult.Message);
+                    logger.LogWarn(result.Message);
                     break;
                 default:
                     break;
             }
 
-            webApiResult.Data = lstResult.Data;
-            webApiResult.Message = lstResult.Message;
+            webApiResult.Data = result.Data;
+            webApiResult.Message = result.Message;
 
             return webApiResult;
         }
@@ -51,7 +53,9 @@ namespace FATC.Common.Extensions
                     break;
                 case ResultType.ERROR:
                     webApiResult.ResponseCode = HttpStatusCode.InternalServerError;
-                    logger.LogError(result.Message, result.DetailException);
+                    // Superseded because the previous method did not set the trace exception
+                    logger.Log(LogType.ERROR, result.DetailException);
+                    //logger.LogError(result.Message, result.DetailException);
                     break;
                 case ResultType.SUCCESS:
                     webApiResult.ResponseCode = HttpStatusCode.OK;
@@ -84,7 +88,9 @@ namespace FATC.Common.Extensions
                 case ResultType.ERROR:
                     webApiResult.Message = result.Message;
                     webApiResult.ResponseCode = HttpStatusCode.InternalServerError;
-                    logger.LogError(result.Message, result.DetailException);
+                    // Superseded because the previous method did not set the trace exception
+                    logger.Log(LogType.ERROR, result.DetailException);
+                    //logger.LogError(result.Message, result.DetailException);
                     break;
                 case ResultType.SUCCESS:
                     webApiResult.Message = result.Message;
