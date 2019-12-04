@@ -9,10 +9,14 @@
     <PackageTags>Log4Net Nlog Ftinococ Helpers Common</PackageTags>
     <PackageReleaseNotes>Initial release</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/ftinoco/FATC.Common</RepositoryUrl>
-    <Version>1.0.4</Version>
+    <Version>1.0.4.3</Version>
     <RepositoryType>github</RepositoryType>
     <PackageProjectUrl>https://github.com/ftinoco/FATC.Common</PackageProjectUrl>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Extensions\ObjectExtensions.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="log4net" Version="2.0.8" />

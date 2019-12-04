@@ -1,5 +1,11 @@
-﻿namespace FATC.Common
+﻿using System;
+
+namespace FATC.Common
 {
+    /// <summary>
+    /// Deprecated object use <see cref="QueryStringParameters"/> instead
+    /// </summary>
+    [Obsolete()]
     public class PagingOptions
     {
         private const int maxPageSize = 100;
@@ -20,5 +26,11 @@
                 _pageSize = (value < maxPageSize) ? value : maxPageSize;
             }
         }
+
+        public string SortField { get; set; }
+
+        public string CurrentSortOrder { get; set; }
+
+        public string CurrentSortField { get; set; } 
     }
 }

@@ -4,6 +4,12 @@ using System.Text;
 
 namespace FATC.Common
 { 
+    public enum SortOrder
+    {
+        DESC,
+        ASC
+    }
+
     public enum ResultType
     {
         INFO,

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FATC.Common.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -52,7 +53,7 @@ namespace FATC.Common.Extensions
                             //if (propertyType.IsGenericType && propertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
                             //    pro.SetValue(objT,  row[pro.Name.ToUpper()]);
                             //else
-                            pro.SetValue(objT, ((row[pro.Name.ToUpper()]).ChangeType(pI.PropertyType)));
+                            pro.SetValue(objT, (ObjectHelper.ChangeType(row[pro.Name.ToUpper()], pI.PropertyType)));
                         }
                         //pro.SetValue(objT, row[pro.Name.ToUpper()] == DBNull.Value ? null : Convert.ChangeType(row[pro.Name.ToUpper()], pI.PropertyType));
                     }
