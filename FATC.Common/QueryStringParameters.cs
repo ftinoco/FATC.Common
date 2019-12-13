@@ -27,5 +27,7 @@
         public string CurrentSortField { get; set; }
 
         public bool Sortable { get { return string.IsNullOrWhiteSpace(SortField); } }
+
+        public string FilterText { get; set; }
     }
 }
