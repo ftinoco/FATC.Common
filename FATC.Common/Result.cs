@@ -6,6 +6,11 @@
         {
         }
 
+        public Result(TData data) : base()
+        {
+            Data = data;
+        }
+        
         public TData Data { get; set; }
     }
 }

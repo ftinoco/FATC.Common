@@ -107,5 +107,87 @@ namespace FATC.Common.Extensions
             }
             return webApiResult;
         }
+        
+        public static WebApiResult<List<T>> ConvertToWebApiResultList<T>(this Result<List<T>> result)
+        {
+            WebApiResult<List<T>> webApiResult = new WebApiResult<List<T>>();
+            switch (result.ResultType)
+            {
+                case ResultType.INFO:
+                    webApiResult.ResponseCode = HttpStatusCode.BadRequest;
+                    break;
+                case ResultType.ERROR:
+                    webApiResult.ResponseCode = HttpStatusCode.InternalServerError;
+                    break;
+                case ResultType.SUCCESS:
+                    webApiResult.ResponseCode = HttpStatusCode.OK;
+                    break;
+                case ResultType.WARNING:
+                    webApiResult.ResponseCode = HttpStatusCode.NotFound;
+                    break;
+                default:
+                    break;
+            }
+
+            webApiResult.Data = result.Data;
+            webApiResult.Message = result.Message;
+
+            return webApiResult;
+        }
+
+        public static WebApiResult<T> ConvertToWebApiResult<T>(this Result<T> result)
+        {
+            WebApiResult<T> webApiResult = new WebApiResult<T>();
+            switch (result.ResultType)
+            {
+                case ResultType.INFO:
+                    webApiResult.ResponseCode = HttpStatusCode.BadRequest;
+                    break;
+                case ResultType.ERROR:
+                    webApiResult.ResponseCode = HttpStatusCode.InternalServerError;
+                    break;
+                case ResultType.SUCCESS:
+                    webApiResult.ResponseCode = HttpStatusCode.OK;
+                    break;
+                case ResultType.WARNING:
+                    webApiResult.ResponseCode = HttpStatusCode.NotFound;
+                    break;
+                default:
+                    break;
+            }
+
+            webApiResult.Data = result.Data;
+            webApiResult.Message = result.Message;
+
+            return webApiResult;
+        }
+
+        public static BaseWebApiResult ConvertToWebApiResult(this BaseResult result)
+        {
+            BaseWebApiResult webApiResult = new BaseWebApiResult();
+            switch (result.ResultType)
+            {
+                case ResultType.INFO:
+                    webApiResult.Message = result.Message;
+                    webApiResult.ResponseCode = HttpStatusCode.BadRequest;
+                    break;
+                case ResultType.ERROR:
+                    webApiResult.Message = result.Message;
+                    webApiResult.ResponseCode = HttpStatusCode.InternalServerError;
+                    break;
+                case ResultType.SUCCESS:
+                    webApiResult.Message = result.Message;
+                    webApiResult.ResponseCode = HttpStatusCode.OK;
+                    break;
+                case ResultType.WARNING:
+                    webApiResult.Message = result.Message;
+                    webApiResult.ResponseCode = HttpStatusCode.NotFound;
+                    break;
+                default:
+                    break;
+            }
+            return webApiResult;
+        }
+
     }
 }
