@@ -29,6 +29,27 @@ namespace FATC.Common.Extensions
             return dataTable;
         }
 
+        public static DataTable ToDataTableUpperFields<T>(this IEnumerable<T> list)
+        {
+            Type type = typeof(T);
+            var properties = type.GetProperties().ToList().ToArray();
+
+            DataTable dataTable = new DataTable();
+            foreach (PropertyInfo info in properties)
+                dataTable.Columns.Add(new DataColumn(info.Name.ToUpper(), Nullable.GetUnderlyingType(info.PropertyType) ?? info.PropertyType));
+
+            foreach (T entity in list)
+            {
+                object[] values = new object[properties.Length - 1 + 1];
+                for (int i = 0; i <= properties.Length - 1; i++)
+                    values[i] = properties[i].GetValue(entity);
+
+                dataTable.Rows.Add(values);
+            }
+
+            return dataTable;
+        }
+         
         public static DataTable ToDataTableUpperFields<T>(this IEnumerable<T> list, List<string> excludedColumns)
         {
             Type type = typeof(T);

@@ -1,6 +1,6 @@
 ﻿namespace FATC.Common
 { 
-    public class QueryStringParameters
+    public class QueryParameters
     {
         const int maxPageSize = 50;
         
@@ -18,15 +18,14 @@
                 _pageSize = (value > maxPageSize) ? maxPageSize : value;
             }
         }
-         
-
+          
         public string SortField { get; set; }
 
         public SortOrder CurrentSortOrder { get; set; }
 
         public string CurrentSortField { get; set; }
 
-        public bool Sortable { get { return string.IsNullOrWhiteSpace(SortField); } }
+        public bool Sortable { get { return !string.IsNullOrWhiteSpace(SortField); } }
 
         public string FilterText { get; set; }
     }

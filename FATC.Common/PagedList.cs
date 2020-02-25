@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FATC.Common.WebUseful
+namespace FATC.Common
 {
     public class PagedList<T> : List<T>
     {

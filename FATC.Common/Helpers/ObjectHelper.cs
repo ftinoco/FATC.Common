@@ -30,7 +30,10 @@ namespace FATC.Common.Helpers
                 //object container = Activator.CreateInstance(ModelType);
                 foreach (PropertyInfo property in modelType.GetProperties().Where(w => !excludedColumns.Select(s => s).Contains(w.Name)))
                 {
-                    procedures.Add(property.Name.ToUpper(), property.GetValue(model).ToString());
+                    if (property.GetValue(model) == null)
+                        procedures.Add(property.Name.ToUpper(), null);
+                    else
+                        procedures.Add(property.Name.ToUpper(), property.GetValue(model).ToString());
                 }
             }
             return procedures;
@@ -45,7 +48,10 @@ namespace FATC.Common.Helpers
                 //object container = Activator.CreateInstance(ModelType);
                 foreach (PropertyInfo property in modelType.GetProperties().Where(w => !excludedColumns.Select(s => s).Contains(w.Name)))
                 {
-                    procedures.Add(property.Name, property.GetValue(model).ToString());
+                    if (property.GetValue(model) == null)
+                        procedures.Add(property.Name, null);
+                    else
+                        procedures.Add(property.Name, property.GetValue(model).ToString());
                 }
             }
             return procedures;
